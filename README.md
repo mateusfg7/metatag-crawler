@@ -213,30 +213,3 @@ console.log(data);
     }
     */
 ```
-
-## Changes in version 2.x
-
-Version 2 is a modernization of the module:
-
-* **Promise-based API** — `scrape(url, options?)` now returns a `Promise` instead
-  of taking a `(err, data)` callback. Use `await` or `.then()`.
-* Rewritten in **TypeScript** and shipped with type definitions, as dual
-  **ESM + CommonJS** builds.
-* `request` was replaced with [`axios`](https://github.com/axios/axios).
-
-The module does not automatically merge properties from different meta
-information sources — all information available on the page is provided as-is.
-If you need the old merged shape, process the result yourself:
-
-```JavaScript
-const data = await scrape('https://www.youtube.com/watch?v=jNQXAC9IVRw');
-
-const oldStyleData = {
-    title: data.og.title || data.meta.title,
-    description: data.og.description || data.meta.description,
-    images: data.og.images,
-    videos: data.og.videos
-};
-
-// ... do what you used to do before with the oldStyleData
-```
