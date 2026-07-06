@@ -1,4 +1,4 @@
-const RESOLVABLE_KEYS = new Set(['url', 'secure_url', 'canonical'])
+const RESOLVABLE_KEYS = new Set(['url', 'secure_url', 'canonical', 'favicon'])
 
 function resolve(value: string, baseUrl: string): string {
   try {

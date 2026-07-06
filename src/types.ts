@@ -32,6 +32,8 @@ export interface ScrapeResult {
   meta: MetaTags;
   images: ImageInfo[];
   og: OpenGraph;
+  /** The main favicon URL (falls back to `/favicon.ico`). */
+  favicon: string;
 }
 
 export interface ScrapeOptions {

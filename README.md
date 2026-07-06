@@ -6,6 +6,7 @@ At the moment this module supports:
 * the `<title>` tag in the document head
 * meta[name="description"] tag
 * link[rel="canonical"] tag
+* the main favicon (`link[rel*="icon"]`, with `/favicon.ico` fallback)
 * img elements on the page
 * many [Open Graph](http://ogp.me/) tags (such as: title, description, url, type, image, video)
 
@@ -50,6 +51,7 @@ const data = await scrape('https://www.youtube.com/watch?v=jNQXAC9IVRw');
 console.log(data.meta.title); // Me at the zoo - YouTube
 console.log(data.meta.description); // The first video on YouTube. Maybe it's time to go back to the zoo?
 console.log(data.meta.canonical); // https://www.youtube.com/watch?v=jNQXAC9IVRw
+console.log(data.favicon); // https://s.ytimg.com/yts/img/favicon_144-vflWmzoXw.png
 
 console.log(data);
 /*
@@ -196,7 +198,8 @@ console.log(data);
                     "height": 360
                 }
             ]
-        }
+        },
+        "favicon": "https://s.ytimg.com/yts/img/favicon_144-vflWmzoXw.png"
     }
     */
 ```
