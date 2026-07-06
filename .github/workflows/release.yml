@@ -9,7 +9,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions:
   contents: write # push the version PR and create tags/releases
   pull-requests: write # open/update the "Version Packages" PR
-  id-token: write # npm provenance (OIDC)
+  id-token: write # npm Trusted Publishing + provenance (OIDC)
 
 jobs:
   release:
@@ -31,11 +31,11 @@ jobs:
 
       # When changesets exist, this opens/updates a "Version Packages" PR.
       # When that PR is merged, it runs `release` to publish and tag.
+      # Publishing uses npm Trusted Publishing (OIDC) via the `id-token`
+      # permission above — no npm token is needed.
       - uses: changesets/action@v1
         with:
           version: pnpm run version
           publish: pnpm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
