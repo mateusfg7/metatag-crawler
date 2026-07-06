@@ -1,6 +1,6 @@
 {
   "name": "@mateusfg7/metatag-crawler",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Crawl a URL and extract its metadata (meta tags, images and Open Graph).",
   "type": "module",
   "publishConfig": {
