@@ -10,6 +10,7 @@ permissions:
   contents: write # push the version PR and create tags/releases
   pull-requests: write # open/update the "Version Packages" PR
   id-token: write # npm Trusted Publishing + provenance (OIDC)
+  packages: write # mirror the release to GitHub Packages
 
 jobs:
   release:
@@ -34,8 +35,21 @@ jobs:
       # Publishing uses npm Trusted Publishing (OIDC) via the `id-token`
       # permission above — no npm token is needed.
       - uses: changesets/action@v1
+        id: changesets
         with:
           version: pnpm run version
           publish: pnpm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Mirror the just-published version to GitHub Packages so it shows up in
+      # the repo's "Packages" section and on your profile. npmjs.com (above)
+      # stays the primary install source.
+      - name: Mirror to GitHub Packages
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          echo "@mateusfg7:registry=https://npm.pkg.github.com" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc
+          pnpm publish --no-git-checks --registry https://npm.pkg.github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
