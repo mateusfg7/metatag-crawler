@@ -41,6 +41,16 @@ const raw = await scrape('https://www.youtube.com/watch?v=jNQXAC9IVRw', { resolv
 | `resolveUrls` | `boolean` | `true` | Resolve relative URLs against the crawled URL. |
 | `userAgent` | `string` | Chrome UA | Override the `User-Agent` request header. |
 
+## Limitations
+
+This crawler is a plain HTTP client (axios + cheerio). Some sites sit behind
+bot-protection services such as **Cloudflare**, which fingerprint the TLS/HTTP
+client rather than just inspecting headers. These sites (for example
+`https://claude.ai`) return **`403 Forbidden`** to any non-browser client
+regardless of the `User-Agent` or other headers you send. Bypassing this
+requires a real browser engine (e.g. Playwright/Puppeteer) and is out of scope
+for this library.
+
 ## Example
 
 ```JavaScript
