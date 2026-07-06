@@ -1,0 +1,71 @@
+{
+  "name": "@mateusfg7/metatag-crawler",
+  "version": "1.0.0",
+  "description": "Crawl a URL and extract its metadata (meta tags, images and Open Graph).",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "rolldown -c rolldown.config.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepack": "pnpm run clean && pnpm run build",
+    "prepublishOnly": "pnpm run typecheck && pnpm run test",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "changeset publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mateusfg7/metatag-crawler.git"
+  },
+  "keywords": [
+    "meta tag",
+    "url",
+    "metadata",
+    "open graph",
+    "canonical url",
+    "meta tags",
+    "webcrawling",
+    "seo"
+  ],
+  "author": "Mateus Felipe Gonçalves <contact@mateusf.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mateusfg7/metatag-crawler/issues"
+  },
+  "homepage": "https://github.com/mateusfg7/metatag-crawler#readme",
+  "dependencies": {
+    "axios": "1.18.1",
+    "cheerio": "1.2.0"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "@types/node": "26.1.0",
+    "nock": "14.0.16",
+    "rolldown": "1.1.4",
+    "rolldown-plugin-dts": "0.27.1",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}
