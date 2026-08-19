@@ -34,7 +34,7 @@ jobs:
       # When that PR is merged, it runs `release` to publish and tag.
       # Publishing uses npm Trusted Publishing (OIDC) via the `id-token`
       # permission above — no npm token is needed.
-      - uses: changesets/action@v1
+      - uses: changesets/action@v2.1.1
         id: changesets
         with:
           version: pnpm run version
